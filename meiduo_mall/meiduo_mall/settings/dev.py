@@ -27,7 +27,7 @@ SECRET_KEY = 'rf@_v!l3*0-qn+b-d*@%p3k7=)segqft+w=++!944v7=98=xe9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','www.meiduo.top','api.meiduo.top']
 
 
 # Application definition
@@ -41,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'verifications.apps.VerificationsConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',# 最外层的中间件，必须放在在最前面，因为要先解决跨域问题，只要允许跨域才能操作相应
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -200,3 +202,14 @@ LOGGING = {
         },
     }
 }
+
+
+CORS_ORIGIN_WHITELIST=(
+    '127.0.0.0.1:8080',
+    'localhost:8080',
+    'www.meiduo.top',
+    'api.meiduo.top',
+)
+CORS_ALLOW_CREDENTALS= True
+
+

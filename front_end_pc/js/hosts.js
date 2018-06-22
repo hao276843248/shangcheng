@@ -1,0 +1,1 @@
+var host='www.meiduo.top:8000'
