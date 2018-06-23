@@ -1,5 +1,11 @@
 from django_redis import get_redis_connection
+from redis import RedisError
 from rest_framework import serializers
+
+import logging
+
+logger = logging.getLogger('django')
+
 
 
 class ImageCodeCheckSerializer(serializers.Serializer):
@@ -24,6 +30,11 @@ class ImageCodeCheckSerializer(serializers.Serializer):
         if image_code_server is None:
             raise serializers.ValidationError('无效图片验证码')
 
+        # 删除验证码：防止暴力测试
+        try:
+            redis_conn.delete('img_%s' % image_code_id)
+        except RedisError as e:
+            logger.error(e)
         # 对比客户端和服务器的验证码
         # 因为py3中的redis，会将数据以原始形态返回读取者
         # 存储数据都是bytes类型，而读取的时候也保持原始的bytes类型，因为速度快
@@ -31,6 +42,10 @@ class ImageCodeCheckSerializer(serializers.Serializer):
         if text.lower() != image_code_server.lower():
             raise serializers.ValidationError('输入图片验证码有误')
 
+        mobile = self.context['view'].kwargs['mobile']
+        send_flag= redis_conn.get('send_flag_%s' % mobile)
+        if send_flag:
+            raise serializers.ValidationError('发送短信验证码过于频繁')
 
         return attrs
 

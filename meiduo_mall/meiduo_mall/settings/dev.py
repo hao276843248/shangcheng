@@ -14,10 +14,11 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# print(BASE_DIR)
 # 添加导包路径
 import sys
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+# print(sys.path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -41,12 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'verifications.apps.VerificationsConfig',
-    'users.apps.UsersConfig',
     'corsheaders',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',# 最外层的中间件，必须放在在最前面，因为要先解决跨域问题，只要允许跨域才能操作相应
+    # 最外层的中间件，必须放在在最前面，因为要先解决跨域问题，只要允许跨域才能操作相应
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -129,7 +131,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 AUTH_USER_MODEL = 'users.User'
 STATIC_URL = '/static/'
-RedisHost="192.168.167.73"
+RedisHost="192.168.167.55"
+# RedisHost="192.168.199.108"
 # 配置redis 数据库
 CACHES = {
     "default": {
@@ -199,17 +202,18 @@ LOGGING = {
         'django': {  # 定义了一个名为django的日志器
             'handlers': ['console', 'file'],
             'propagate': True,
+            'level': 'DEBUG',
         },
     }
 }
 
 
-CORS_ORIGIN_WHITELIST=(
-    '127.0.0.0.1:8080',
+
+# CORS
+CORS_ORIGIN_WHITELIST = (
+    '127.0.0.1:8080',
     'localhost:8080',
-    'www.meiduo.top',
-    'api.meiduo.top',
+    'www.meiduo.top:8080',
+    'api.meiduo.top:8080'
 )
-CORS_ALLOW_CREDENTALS= True
-
-
+CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
