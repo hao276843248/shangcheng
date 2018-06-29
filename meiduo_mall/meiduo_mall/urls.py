@@ -19,8 +19,11 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # 验证码
-    url(r'^',include('verifications.urls')),
-    # 验证码
-    url(r'^',include('users.urls')),
-    url(r'^oauth/',include('oauth.urls')),
+    url(r'^', include('verifications.urls')),
+    # 用户
+    url(r'^', include('users.urls')),
+    # QQ登录
+    url(r'^oauth/', include('oauth.urls')),
+    # 省市区
+    url(r'^', include('areas.urls')),
 ]

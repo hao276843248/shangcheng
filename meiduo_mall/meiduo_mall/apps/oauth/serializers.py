@@ -50,7 +50,6 @@ class OAuthQQUserSerializer(serializers.Serializer):
                 password=validated_data['password'],
                 mobile=validated_data['mobile'],
             )
-
         OAuthQQUser.objects.create(
             openid=validated_data['openid'],
             user=user
