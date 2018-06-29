@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^',include('verifications.urls')),
     # 验证码
     url(r'^',include('users.urls')),
+    url(r'^oauth/',include('oauth.urls')),
 ]

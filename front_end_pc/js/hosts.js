@@ -1,1 +1,1 @@
-var host='http://api.meiduo.top:8000'
+var host='http://api.meiduo.top:8090'

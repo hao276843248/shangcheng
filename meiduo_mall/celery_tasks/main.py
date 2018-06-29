@@ -9,7 +9,7 @@ if not os.getenv('DJANGO_SETTINGS_MODULE'):
 
 
 # 创建celery客户端实例,并起别名
-celery_app = Celery('meiduo',broker = "redis://192.168.167.55:6379/12")
+celery_app = Celery('meiduo',broker = "redis://192.168.255.133:6379/12")
 
 # 加载celery配置
 celery_app.config_from_object('celery_tasks.config')

@@ -1,14 +1,17 @@
-from django.shortcuts import render
 
 # Create your views here.
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView,ListAPIView
 from rest_framework.response import Response
 
 from rest_framework.views import APIView
 
 # url(r'^usernames/(?P<username>\w{5,20})/count/$', views.UsernameCountView.as_view()),
+from rest_framework.viewsets import ViewSet
+
 from users import serializers
 from users.models import User
+from rest_framework.settings import api_settings
+
 
 
 class UsernameCountView(APIView):

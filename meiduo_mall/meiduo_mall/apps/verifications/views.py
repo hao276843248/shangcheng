@@ -33,7 +33,7 @@ class SMSCodeView(GenericAPIView):
 
     def get(self, request, mobile):
         # 忽略校验
-        print(11111)
+
         serializer = self.get_serializer(data=request.query_params)
 
         # 开启校验
@@ -51,7 +51,7 @@ class SMSCodeView(GenericAPIView):
         pl.setex('sms_%s' % mobile, constants.SMS_CODE_REDIS_EXPIRES, sms_code)
         pl.setex('send_flag_%s' % mobile, constants.SEND_SMS_CODE_INTERVAL, 1)
         # 发送短信验证码
-        send_sms_code.delay(mobile, sms_code)
+        # send_sms_code.delay(mobile, sms_code)
         # send_sms_code(mobile, sms_code)
         # CCP().send_template_sms(mobile,[sms_code,constants.SMS_CODE_REDIS_EXPIRES//60],constants.SEND_SMS_TEMPLATE_ID)
         print(sms_code)
